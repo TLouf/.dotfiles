@@ -1,0 +1,8 @@
+[user]
+	username = TLouf
+	email = loufthomas@gmail.com
+	name = TLouf
+	mail = loufthomas@gmail.com
+[credential]
+	helper = store
+	helper = store
