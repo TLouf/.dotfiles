@@ -139,22 +139,36 @@ function jptt(){
     if [[ $PID ]]; then
         kill $PID
     fi
+    
+    VPN_ID=$(nmcli con show --active | awk '/\yvpn\y/ { print $1 }')
+
 	if [[ $1 = 'salmunia' ]]; then
 		# Listen to port $2 on the remote and forward it to the local port $3
 		ssh -N -f -L localhost:"$3":localhost:"$2" $1
 		# If couldn't resolve hostname, have this here because ethernet connection
 		# is like going through the VPN.
-		if [[ "$?" = "255" ]]; then
-			nmcli con up id IFISC
-			sleep 1
-			ssh -N -f -L localhost:"$3":localhost:"$2" $1
-		fi
+        if [[ "$?" = "255" ]]; then
+            if [[ $VPN_ID != "IFISC" ]]; then
+                if [[ $VPN_ID ]]; then
+                    nmcli con down id $VPN_ID
+                fi
+                nmcli con up id IFISC
+                sleep 1
+            fi
+	        ssh -N -f -L localhost:"$3":localhost:"$2" $1
+	    fi
+		ssh $1 "~/miniconda3/envs/words-use/bin/jupyter server list"
+
 	elif [[ $1 = 'dnds' ]]; then
-		nmcli con up id CEU-VPN
+        if [[ $VPN_ID != "CEU-VPN" ]]; then
+            if [[ $VPN_ID ]]; then
+                nmcli con down id $VPN_ID
+            fi
+            nmcli con up id CEU-VPN
+            sleep 1
+        fi
 		ssh -N -f -L localhost:"$3":localhost:"$2" $1
-	elif [[ $1 = 'orangejupyter' ]]; then
-		nmcli con up id kido-ifisc
-		ssh -N -f -L localhost:"$3":localhost:"$2" $1
+		ssh $1 "~/mambaforge/envs/emomap/bin/jupyter server list"
 	fi
 	
 	if [[ "$new_tab" = true ]] ; then
