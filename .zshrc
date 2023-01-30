@@ -157,7 +157,8 @@ function jptt(){
             fi
 	        ssh -N -f -L localhost:"$3":localhost:"$2" $1
 	    fi
-		ssh $1 "~/miniconda3/envs/words-use/bin/jupyter server list"
+        # better way with conda activate $4 into which jupyter... but slow
+        JPT_BIN="~/miniconda3/envs/words-use/bin/jupyter"
 
 	elif [[ $1 = 'dnds' ]]; then
         if [[ $VPN_ID != "CEU-VPN" ]]; then
@@ -168,9 +169,21 @@ function jptt(){
             sleep 1
         fi
 		ssh -N -f -L localhost:"$3":localhost:"$2" $1
-		ssh $1 "~/mambaforge/envs/emomap/bin/jupyter server list"
+        JPT_BIN="~/mambaforge/envs/emomap/bin/jupyter"
 	fi
-	
+
+    RUNNING_SERVERS=$(ssh $1 "$JPT_BIN server list")
+    echo $RUNNING_SERVERS
+    RUNNING_MATCH=$(echo $RUNNING_SERVERS | grep localhost:"$2")
+    if [[ -z "$RUNNING_MATCH" ]]; then
+        # cjpt with $4 as project name to start jupyter server in tmux session called $4
+        echo "No matching jupyter server, starting one..."
+        ssh $1 "tmux new-session -d -A -s  $4"
+        ssh $1 "tmux send-keys -t $4 'cjpt ' $4 ' ' $3 C-m"
+        sleep 2
+        ssh $1 "$JPT_BIN server list"
+	fi
+
 	if [[ "$new_tab" = true ]] ; then
         firefox -new-tab localhost:$3
     fi
