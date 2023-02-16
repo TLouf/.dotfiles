@@ -180,7 +180,7 @@ function jptt(){
         echo "No matching jupyter server, starting one..."
         ssh $1 "tmux new-session -d -A -s  $4"
         ssh $1 "tmux send-keys -t $4 'cjpt ' $4 ' ' $3 C-m"
-        sleep 2
+        sleep 20
         ssh $1 "$JPT_BIN server list"
 	fi
 
