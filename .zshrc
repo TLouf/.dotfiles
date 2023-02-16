@@ -122,6 +122,9 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 function jptt(){
+    # Usage: jptt [-n] `server name` `remote port` `local port` `project name`
+    # When specified, the -n option makes firefox open a new tab with the remote
+    # JupterLab instance
 	# Treat options
 	new_tab=false
 	local OPTIND OPTARG
