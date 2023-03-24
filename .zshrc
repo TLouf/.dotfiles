@@ -227,7 +227,7 @@ function pdf-to-png(){
     for file in *; do
         extension="${file##*.}"
         filename="${file%.*}"
-        if [ -f "$file" ] && [ $extension == 'pdf' ] ; then
+        if [[ -f "$file" ]] && [[ $extension == 'pdf' ]] ; then
             gs -dSAFER -dEPSCrop -r$1 -sDEVICE=png16m -o "$filename".png "$filename".pdf
         fi 
     done
@@ -256,3 +256,6 @@ alias gedit=gnome-text-editor
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
