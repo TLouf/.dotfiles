@@ -121,6 +121,12 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+function ssh-tunnel(){
+    # Listen to port $2 on the remote $1 and forward it to the local port $3
+	ssh -N -f -L localhost:"$3":localhost:"$2" $1
+}
+
 function jptt(){
     # Usage: jptt [-n] `server name` `remote port` `local port` `project name`
     # When specified, the -n option makes firefox open a new tab with the remote
@@ -147,7 +153,7 @@ function jptt(){
 
 	if [[ $1 = 'salmunia' ]]; then
 		# Listen to port $2 on the remote and forward it to the local port $3
-		ssh -N -f -L localhost:"$3":localhost:"$2" $1
+		ssh-tunnel $1 $2 $3
 		# If couldn't resolve hostname, have this here because ethernet connection
 		# is like going through the VPN.
         if [[ "$?" = "255" ]]; then
@@ -158,7 +164,7 @@ function jptt(){
                 nmcli con up id IFISC
                 sleep 1
             fi
-	        ssh -N -f -L localhost:"$3":localhost:"$2" $1
+	        ssh-tunnel $1 $2 $3
 	    fi
         # better way with conda activate $4 into which jupyter... but slow
         JPT_BIN="~/miniconda3/envs/words-use/bin/jupyter"
@@ -171,7 +177,7 @@ function jptt(){
             nmcli con up id CEU-VPN
             sleep 1
         fi
-		ssh -N -f -L localhost:"$3":localhost:"$2" $1
+		ssh-tunnel $1 $2 $3
         JPT_BIN="~/mambaforge/envs/emomap/bin/jupyter"
 	fi
 
