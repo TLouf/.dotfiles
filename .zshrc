@@ -151,7 +151,7 @@ function jptt(){
     
     VPN_ID=$(nmcli con show --active | awk '/\yvpn\y/ { print $1 }')
 
-	if [[ $1 = 'salmunia' ]]; then
+	if [[ "$1" == "salmunia" || "$1" =~ "math0[12]" ]]; then
 		# Listen to port $2 on the remote and forward it to the local port $3
 		ssh-tunnel $1 $2 $3
 		# If couldn't resolve hostname, have this here because ethernet connection
