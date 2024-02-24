@@ -81,12 +81,7 @@ plugins=(
     git
     zsh-autosuggestions
     pip
-    mosh
     sudo
-    poetry
-    asdf
-    nvm
-    thefuck
     zoxide
 )
 
