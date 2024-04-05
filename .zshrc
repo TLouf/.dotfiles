@@ -136,4 +136,5 @@ fi
 
 alias gedit=gnome-text-editor
 alias mamba=micromamba
+alias conda=micromamba
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
