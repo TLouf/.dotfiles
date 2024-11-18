@@ -116,6 +116,9 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+if command -v pixi > /dev/null 2>&1; then
+    eval "$(pixi completion --shell zsh)"
+fi
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -134,7 +137,6 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
 
-alias gedit=gnome-text-editor
 alias mamba=micromamba
 alias conda=micromamba
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
