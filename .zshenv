@@ -13,3 +13,6 @@ if [[ -d "/data/bin" ]] ; then
     PATH="/data/bin:$PATH"
 fi
 
+if [[ -d "$HOME/.pixi/bin" ]] ; then
+    PATH="$HOME/.pixi/bin:$PATH"
+fi
