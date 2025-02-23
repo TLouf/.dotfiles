@@ -67,6 +67,8 @@ configuration {
 /*	display-keys: ;*/
 /*	display-filebrowser: ;*/
 /*	display-recursivebrowser: ;*/
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
 /*	kb-secondary-paste: "Control+v,Insert";*/
 /*	kb-secondary-copy: "Control+c";*/
@@ -81,9 +83,9 @@ configuration {
 /*	kb-remove-word-forward: "Control+Alt+d";*/
 /*	kb-remove-char-forward: "Delete,Control+d";*/
 /*	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";*/
-/*	kb-remove-to-eol: "Control+k";*/
+	kb-remove-to-eol: "";
 /*	kb-remove-to-sol: "Control+u";*/
-/*	kb-accept-entry: "Control+j,Control+m,Return,KP_Enter";*/
+	kb-accept-entry: "Return,KP_Enter";
 /*	kb-accept-custom: "Control+Return";*/
 /*	kb-accept-custom-alt: "Control+Shift+Return";*/
 /*	kb-accept-alt: "Shift+Return";*/
@@ -165,6 +167,11 @@ configuration {
     display-Network: "󰤨";
     display-filebrowser: "";
     sidebar-mode: true;
+}
+
+window {
+    location: center;
+    anchor: center;
 }
 
 @theme "catppuccin-mocha"
