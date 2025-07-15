@@ -1,4 +1,0 @@
-action = copy
-files = [emojis, fontawesome6]
-skin-tone = neutral
-
