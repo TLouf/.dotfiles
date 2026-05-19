@@ -1,0 +1,6 @@
+require("hyprland/bindings")
+require("hyprland/input")
+require("hyprland/looks")
+require("hyprland/monitors")
+require("hyprland/startup")
+require("hyprland/windows")
