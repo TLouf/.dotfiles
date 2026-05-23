@@ -2,8 +2,8 @@ local mainMod = "SUPER"
 local terminal = "kitty"
 local fileManager = "nautilus"
 local menu = "pkill rofi || rofi -show combi"
-local lockcmd = "hyprlock"
-local suspendcmd = "killall -STOP Hyprland & sleep 4 & systemctl suspend"
+local lockcmd = "pidof hyprlock || hyprlock"
+local suspendcmd = lockcmd .. "& systemctl suspend"
 
 hl.config({
     binds = {
@@ -27,7 +27,7 @@ hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.local/bin/omarchy-launch-audio-mi
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("hyprctl dispatch exit"))
 hl.bind(mainMod .. " + S", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen(1))
+hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ internal = 2, client = 0, action = "toggle" }))
 hl.bind(mainMod .. " + Super_L", hl.dsp.exec_cmd(menu), { release = true })
 hl.bind("SUPER_L", hl.dsp.exec_cmd(""), { release = true })
 
@@ -91,11 +91,11 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 hl.bind("switch:on:Lid Switch",
-    hl.dsp.exec_cmd("(pidof " .. lockcmd .. " || " .. lockcmd .. ") & sleep 1 && hyprctl dispatch dpms off"),
+    hl.dsp.exec_cmd(lockcmd .. "& sleep 1 && hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'"),
     { locked = true })
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl dispatch dpms on"), { locked = true })
+hl.bind("switch:off:Lid Switch", hl.dsp.dpms({ action = "enable" }), { locked = true })
 hl.bind(mainMod .. " + escape",
-    hl.dsp.exec_cmd("(pidof " .. lockcmd .. " || " .. lockcmd .. ") & sleep 1 && hyprctl dispatch dpms off"),
+    hl.dsp.exec_cmd(lockcmd .. "& sleep 1 && hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'"),
     { locked = true })
 
 hl.bind("XF86PowerDown", hl.dsp.exec_cmd(suspendcmd), { locked = true })
