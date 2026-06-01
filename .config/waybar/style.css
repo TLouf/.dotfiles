@@ -1,0 +1,89 @@
+@import "./mocha.css";
+
+* {
+    border: none;
+    font-family: Ubuntu Nerd Font;
+    font-size: 16px;
+}
+
+window#waybar {
+    color: white;
+    background-color: @crust;
+    margin: 10px 10px;
+}
+
+#custom-notification,
+#custom-emoji-picker,
+#custom-gnma,
+#custom-date,
+#custom-clock,
+/* #workspaces, */
+#language,
+#battery,
+#bluetooth,
+#network,
+#pulseaudio,
+#tray,
+#workspaces,
+#mpd {
+    border-radius: 10px;
+    background: @base;
+    margin: 6px 5px;
+    padding: 2px 12px;
+}
+
+#workspaces button {
+    color: white;
+    /*transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease,
+        transform 0.3s ease;*/
+    margin: 0 10px;
+    min-width: 10px;
+}
+#workspaces button.empty {
+    opacity: 1;
+}
+#workspaces button.active,
+button:hover {
+    background: @blue;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+#pulseaudio {
+    min-width: 100px;
+}
+#custom-notification {
+    min-width: 20px;
+}
+
+#custom-date {
+    margin-left: 0;
+}
+#custom-clock {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#battery {
+    margin-right: 0;
+}
+#battery.warning {
+    background-color: @peach;
+}
+#battery.critical {
+    background-color: @red;
+}
+
+#custom-gnma.soon {
+    background-color: @peach;
+}
+#custom-gnma.very-soon {
+    background-color: @red;
+}
+#custom-gnma.started {
+    background-color: @teal;
+}
